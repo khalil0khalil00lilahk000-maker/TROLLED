@@ -6,9 +6,6 @@
 using namespace geode::prelude;
 
 
-// ============================================================
-// TROLL
-// ============================================================
 
 static void showTroll() {
     auto scene = CCDirector::sharedDirector()->getRunningScene();
@@ -16,7 +13,7 @@ static void showTroll() {
     if (!scene)
         return;
 
-    // Chargement de la ressource du mod
+
     auto image = CCSprite::create("shrek.png"_spr);
 
     if (!image) {
@@ -32,50 +29,43 @@ static void showTroll() {
         return;
     }
 
-    // Centre de l'écran
+    
     image->setPosition(screen / 2);
 
-    // Plein écran
+   
     image->setScaleX(screen.width / imageSize.width);
     image->setScaleY(screen.height / imageSize.height);
 
-    // Au-dessus de tout
+   
     image->setZOrder(999999);
 
     scene->addChild(image);
 
-    // ========================================================
-    // 5 APPARITIONS
-    // Chaque apparition dure 2 secondes
-    // ========================================================
-
     auto sequence = CCSequence::create(
 
-        // Apparition 1
+       
         CCDelayTime::create(2.0f),
         CCFadeOut::create(0.12f),
 
-        // Apparition 2
+       
         CCFadeIn::create(0.12f),
         CCDelayTime::create(2.0f),
         CCFadeOut::create(0.12f),
 
-        // Apparition 3
         CCFadeIn::create(0.12f),
         CCDelayTime::create(2.0f),
         CCFadeOut::create(0.12f),
 
-        // Apparition 4
+   
         CCFadeIn::create(0.12f),
         CCDelayTime::create(2.0f),
         CCFadeOut::create(0.12f),
 
-        // Apparition 5
         CCFadeIn::create(0.12f),
         CCDelayTime::create(2.0f),
         CCFadeOut::create(0.12f),
 
-        // Suppression finale
+      
         CallFuncExt::create([image]() {
             image->removeFromParentAndCleanup(true);
         }),
@@ -87,9 +77,7 @@ static void showTroll() {
 }
 
 
-// ============================================================
-// SOURIS / TACTILE
-// ============================================================
+
 
 class $modify(TrollTouchDispatcher, CCTouchDispatcher) {
 
@@ -104,7 +92,7 @@ class $modify(TrollTouchDispatcher, CCTouchDispatcher) {
             index
         );
 
-        // Premier événement tactile / souris
+      
         if (index == 0) {
             log::info("TROLL : clic/tactile détecté");
             showTroll();
@@ -113,9 +101,7 @@ class $modify(TrollTouchDispatcher, CCTouchDispatcher) {
 };
 
 
-// ============================================================
-// CLAVIER
-// ============================================================
+
 
 class $modify(TrollKeyboardDispatcher, CCKeyboardDispatcher) {
 
@@ -133,7 +119,7 @@ class $modify(TrollKeyboardDispatcher, CCKeyboardDispatcher) {
                 timestamp
             );
 
-        // N'importe quelle touche du clavier
+       
         if (isKeyDown && !isKeyRepeat) {
             log::info("TROLL : touche clavier détectée");
             showTroll();
